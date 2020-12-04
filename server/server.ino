@@ -3,9 +3,10 @@
 const char* ssid = "definir";
 const char* password = "definir";
 
-IPAddress ip(192, 168, 13, 80);            // IP address of the server
-IPAddress gateway(192,168,0,1);           // gateway of your network
-IPAddress subnet(255,255,255,0);          // subnet mask of your network
+IPAddress ip(192, 168, 13, 80);
+IPAddress gateway(192,168,0,1);
+IPAddress subnet(255,255,255,0);
+WiFiServer server(80);
 
 void setup(){
     Serial.begin(115200); 
@@ -22,7 +23,7 @@ void setup(){
     Serial.println("\nConexão bem sucedida!");
     Serial.println("O IP do servidor é: "); Serial.print(WiFi.localIP());
     //---------------------------------------------------------------------------------------
-
+    server.begin();
     //--------------------------------Setup dos Pinos a usar---------------------------------
     pinMode(D1, INPUT); //Pin Botão 1
     pinMode(D2, INPUT); //Pin Botão 2
@@ -36,27 +37,33 @@ void setup(){
 }
 
 void loop(){
+    WiFiClient client = server.available();
     int estado1 = digitalRead(D1), estado2 = digitalRead(D2), estado3 = digitalRead(D3), estado4 = digitalRead(D4);
     if(digitalRead(D1) != estado1){
         estado1 = digitalRead(D1);
         Serial.println("Pino1: "); Serial.print(digitalRead(D1));
         digitalWrite(D5, digitalRead(D1));
+        client.printf("Led1 = %d", digitalRead(D1));
     }
     else if(digitalRead(D2) != estado1){
         estado2 = digitalRead(D2);
         Serial.println("Pino2: "); Serial.print(digitalRead(D2));
         digitalWrite(D6, digitalRead(D2));
+        client.printf("Led2 = %d", digitalRead(D2));
     }
     else if(digitalRead(D3) != estado1){
         estado3 = digitalRead(D3);
         Serial.println("Pino3: "); Serial.print(digitalRead(D3));
         digitalWrite(D7, digitalRead(D3));
+        client.printf("Led3 = %d", digitalRead(D3));
     }
     else if(digitalRead(D4) != estado1){
         estado4 = digitalRead(D4);
         Serial.println("Pino4: "); Serial.print(digitalRead(D4));
         digitalWrite(D8, digitalRead(D4));
+        client.printf("Led4 = %d", digitalRead(D4));
     }
+    delay(1500);
+    client.flush();
 }
-//Para ligação entre NodeMCU's usar MQTT ou HTTP
-//Usar JSON para comunicar as mudanças nas diferentes placas
+//LedX = 1/0
