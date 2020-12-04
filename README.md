@@ -16,28 +16,36 @@ O servidor tem a si ligada quatro interruptores de duas posições e quatro LED'
 A comunicação entre placas é feita através de *HTTP* e tem o seguinte funcionamento:
 
                     Mudança no Interruptor
+
                              +
                              |
                              |
-        Mudança de Estado<---+
-        Do LED Correspondente|
+      Mudança de Estado  <---+
+    Do LED Correspondente    |
                              |
                              v
+
          Atualização do Estado Assinalado No Servidor
+
                              +
                              |
                              |
                              |
                              |
                              v
-  Cliente Correspondente Deteta a Mudança através do Método Get
+                                                                
+              Cliente Correspondente Deteta
+             a Mudança através do Método Get
+
                              +
                              |
                              |
                              |
                              |
                              v
-Cliente a Luz que Confirma que a Câmara a que está associado está
+
+              Cliente a Luz que Confirma que
+            a Câmara a que está associado está
                           "On air"
 
 
