@@ -15,38 +15,38 @@ Esta solução recorre à placa **NodeMCU** tanto para o servidor como para os d
 O servidor tem a si ligada quatro interruptores de duas posições e quatro LED's, pois corresponde ao número de câmaras máximo usualmente usadas, mas isto é expansível dependendo das capacidades da versão da placa usada.
 A comunicação entre placas é feita através de *HTTP* e tem o seguinte funcionamento:
 
-                    Mudança no Interruptor
+                                    Mudança no Interruptor
 
-                             +
-                             |
-                             |
-      Mudança de Estado  <---+
-    Do LED Correspondente    |
-                             |
-                             v
+                                            +
+                                            |
+                                            |
+                      Mudança de Estado  <---+
+                    Do LED Correspondente    |
+                                            |
+                                            v
 
-         Atualização do Estado Assinalado No Servidor
+                        Atualização do Estado Assinalado No Servidor
 
-                             +
-                             |
-                             |
-                             |
-                             |
-                             v
-                                                                
-              Cliente Correspondente Deteta
-             a Mudança através do Método Get
+                                            +
+                                            |
+                                            |
+                                            |
+                                            |
+                                            v
+                                                                                
+                              Cliente Correspondente Deteta
+                            a Mudança através do Método Get
 
-                             +
-                             |
-                             |
-                             |
-                             |
-                             v
+                                            +
+                                            |
+                                            |
+                                            |
+                                            |
+                                            v
 
-              Cliente a Luz que Confirma que
-            a Câmara a que está associado está
-                          "On air"
+                              Cliente a Luz que Confirma que
+                            a Câmara a que está associado está
+                                          "On air"
 
 
 ## Em desenvolvimento
