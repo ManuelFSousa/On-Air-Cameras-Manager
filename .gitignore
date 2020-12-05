@@ -1,3 +1,4 @@
 .vscode
 .DS_Store
 .vscode/arduino.json
+/server/WiFi_Config.h
