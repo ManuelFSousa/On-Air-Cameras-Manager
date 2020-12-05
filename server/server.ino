@@ -8,8 +8,8 @@
 const char* ssid = "definir";
 const char* password = "definir";
 
-IPAddress ip(192, 168, 13, 80);
-IPAddress gateway(192,168,0,1);
+IPAddress ip(192, 168, 1, 13);
+IPAddress gateway(192,168,1,1);
 IPAddress subnet(255,255,255,0);
 WiFiServer server(80);
 
@@ -26,8 +26,8 @@ void setup(){
         delay(500);
         Serial.print(".");
     }
-    Serial.println("\nConexão bem sucedida!");
-    Serial.println("O IP do servidor é: "); Serial.print(WiFi.localIP());
+    Serial.print("\nConexão bem sucedida!");
+    Serial.print("\nO IP do servidor é: "); Serial.print(WiFi.localIP()); Serial.print(":80");
     //---------------------------------------------------------------------------------------
     server.begin();
     //--------------------------------Setup dos Pinos a usar---------------------------------
