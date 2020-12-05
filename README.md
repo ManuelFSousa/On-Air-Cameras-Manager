@@ -20,8 +20,8 @@ A comunicação entre placas é feita através de *HTTP* e tem o seguinte funcio
                                             +
                                             |
                                             |
-                      Mudança de Estado  <---+
-                    Do LED Correspondente    |
+                     Mudança de Estado  <---+
+                   Do LED Correspondente    |
                                             |
                                             v
 
