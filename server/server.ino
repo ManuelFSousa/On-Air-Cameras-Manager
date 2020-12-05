@@ -19,7 +19,8 @@ void setup(){
     //-----------------------------------Ligação ao WIFI-----------------------------------
     WiFi.config(ip, gateway, subnet);
     WiFi.begin(ssid, password); 
-    Serial.println("**************Servidor de câmaras no ar da bandAlegre**************");
+    Serial.flush();
+    Serial.print("\n\n**************Servidor de câmaras no ar da bandAlegre**************");
     Serial.println("\nA conectar ao WIFI "); Serial.print(ssid);
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -28,7 +29,7 @@ void setup(){
     Serial.println("\nConexão bem sucedida!");
     Serial.println("O IP do servidor é: "); Serial.print(WiFi.localIP());
     //---------------------------------------------------------------------------------------
-    //server.begin();
+    server.begin();
     //--------------------------------Setup dos Pinos a usar---------------------------------
     pinMode(D1, INPUT); //Pin Botão 1
     pinMode(D2, INPUT); //Pin Botão 2
@@ -43,36 +44,35 @@ void setup(){
 
 void loop(){
     int estado1 = digitalRead(D1), estado2 = digitalRead(D2), estado3 = digitalRead(D3), estado4 = digitalRead(D4);
-    //WiFiClient client = server.available();
+    WiFiClient client = server.available();
     
     while(1){
-        Serial.println("\nConexão bem sucedida!");
         if(digitalRead(D1) != estado1){
             estado1 = digitalRead(D1);
-            Serial.println("Pino1: "); Serial.print(digitalRead(D1));
+            Serial.print("\nPino1: "); Serial.print(digitalRead(D1));
             digitalWrite(D5, digitalRead(D1));
-            //client.printf("Led1 = %d", digitalRead(D1));
+            client.printf("Led1 = %d", digitalRead(D1));
         }
         else if(digitalRead(D2) != estado2){
             estado2 = digitalRead(D2);
-            Serial.println("Pino2: "); Serial.print(digitalRead(D2));
+            Serial.print("\nPino2: "); Serial.print(digitalRead(D2));
             digitalWrite(D6, digitalRead(D2));
-            //client.printf("Led2 = %d", digitalRead(D2));
+            client.printf("Led2 = %d", digitalRead(D2));
         }
         else if(digitalRead(D3) != estado3){
             estado3 = digitalRead(D3);
-            Serial.println("Pino3: "); Serial.print(digitalRead(D3));
+            Serial.print("\nPino3: "); Serial.print(digitalRead(D3));
             digitalWrite(D7, digitalRead(D3));
-            //client.printf("Led3 = %d", digitalRead(D3));
+            client.printf("Led3 = %d", digitalRead(D3));
         }
         else if(digitalRead(D4) != estado4){
             estado4 = digitalRead(D4);
-            Serial.println("Pino4: "); Serial.print(digitalRead(D4));
+            Serial.print("\nPino4: "); Serial.print(digitalRead(D4));
             digitalWrite(D8, digitalRead(D4));
-            //client.printf("Led4 = %d", digitalRead(D4));
+            client.printf("Led4 = %d", digitalRead(D4));
         }
-        delay(1500);
-        //client.flush();
+        client.flush();
+        delay(500);
     }    
 }
 //LedX = 1/0
