@@ -4,7 +4,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <ESP8266WiFi.h>
-#include "WiFi_Config.h"
+#include "WiFi_Config.hpp"
 
 #define B1 D0
 #define B2 D1
@@ -63,24 +63,28 @@ void loop(){
             digitalWrite(L1, digitalRead(B1));
             server.printf("Led1 = %d", digitalRead(B1));
         }
-        else if(digitalRead(B2) != estado2){
+        
+        if(digitalRead(B2) != estado2){
             estado2 = digitalRead(B2);
             Serial.print("\nPino2: "); Serial.print(digitalRead(B2));
             digitalWrite(L2, digitalRead(B2));
             server.printf("Led2 = %d", digitalRead(D2));
         }
-        else if(digitalRead(B3) != estado3){
+        
+        if(digitalRead(B3) != estado3){
             estado3 = digitalRead(B3);
             Serial.print("\nPino3: "); Serial.print(digitalRead(B3));
             digitalWrite(L3, digitalRead(B3));
             server.printf("Led3 = %d", digitalRead(D3));
         }
-        else if(digitalRead(B4) != estado4){
+        
+        if(digitalRead(B4) != estado4){
             estado4 = digitalRead(B4);
             Serial.print("\nPino4: "); Serial.print(digitalRead(B4));
             digitalWrite(L4, digitalRead(B4));
             server.printf("Led4 = %d", digitalRead(B4));
         }
+
         server.flush();
         delay(500);
     }    
