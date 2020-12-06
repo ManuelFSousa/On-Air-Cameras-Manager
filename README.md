@@ -50,11 +50,13 @@ A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem
 
 ###   O circuito
   **Servidor**
+
    O circuito do Servidor é muito simples e consiste num NodeMCU ao qual se encontram 4 alavancas de duas posições em que se indicam quais as câmaras que estão a transmitir. A cada switch corresponde um LED para garantir que a placa detetou as mudanças de sinal dos botões.
 
    ![Imagem do Circuito do Servidor](https://github.com/ManuelFSousa/On-Air-Cameras-Manager/blob/main/Diagramas/Circuito_Servidor.png)
 
    **Cliente**
+   
    *Em Desenvolvimento*
 
 ## Em desenvolvimento
