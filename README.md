@@ -51,7 +51,7 @@ A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem
 ###   O circuito
   **Servidor**
 
-   O circuito do Servidor é muito simples e consiste num NodeMCU ao qual se encontram 4 alavancas de duas posições em que se indicam quais as câmaras que estão a transmitir. A cada switch corresponde um LED para garantir que a placa detetou as mudanças de sinal dos botões.
+   O circuito do Servidor é muito simples e consiste num NodeMCU ao qual se encontram 4 alavancas de duas posições em que se indicam quais as câmaras que estão a transmitir. A cada switch corresponde um LED para garantir que a placa detetou as mudanças de sinal dos botões. Para a ligação das alavancar recorreu-se ao tradicional circuito com uma resistência *pull-down*, esta resistência com valor de cerca de 100 ohms, tem como objetivo evitar oscilações aleatórias do valor de leitura do pin correspondente, obrigando a que quando a alavanca se encontra desligada (para baixo), o valor é efetivamente *LOW*. Dada a placa usada fornecer cerca 3.3V, os LED's usados encontram-se ligados diretamente à placa, mas caso a placa forneça 5V, é aconselhado ligar uma resitência em série para evitar que o LED queime.
 
    ![Imagem do Circuito do Servidor](https://github.com/ManuelFSousa/On-Air-Cameras-Manager/blob/main/Diagramas/Circuito_Servidor.png)
 
