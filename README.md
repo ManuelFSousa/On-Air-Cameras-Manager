@@ -13,7 +13,7 @@ Por esse motivo, decidi criar este sistema para tentar resolver esse problema.
 
 Esta solução recorre à placa **NodeMCU** tanto para o servidor como para os diferentes clientes.
 O servidor tem a si ligada quatro interruptores de duas posições e quatro LED's, pois corresponde ao número de câmaras máximo usualmente usadas, mas isto é expansível dependendo das capacidades da versão da placa usada.
-A comunicação entre placas é feita através de *HTTP* e tem o seguinte funcionamento:
+A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem o seguinte funcionamento:
 
                                     Mudança no Interruptor
 
@@ -48,6 +48,14 @@ A comunicação entre placas é feita através de *HTTP* e tem o seguinte funcio
                             a Câmara a que está associado está
                                           "On air"
 
+###   O circuito
+  **Servidor**
+   O circuito do Servidor é muito simples e consiste num NodeMCU ao qual se encontram 4 alavancas de duas posições em que se indicam quais as câmaras que estão a transmitir. A cada switch corresponde um LED para garantir que a placa detetou as mudanças de sinal dos botões.
+
+   ![Imagem do Circuito do Servidor](https://github.com/ManuelFSousa/On-Air-Cameras-Manager/blob/main/Diagramas/Circuito_Servidor.png)
+
+   **Cliente**
+   *Em Desenvolvimento*
 
 ## Em desenvolvimento
 
@@ -56,3 +64,4 @@ De momento encontra-se tudo ainda em prototipagem e este código não foi testad
 ## Objetivos Futuros
 
 Se possível desenhar uma caixa impressa em 3D e que tenha encaixa para a sapata do flash das câmaras.
+Criar uma ligação com a mesa de mistura de vídeo para a transição dos sinais no servidor ser automática.
