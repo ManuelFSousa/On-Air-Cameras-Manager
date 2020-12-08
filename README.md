@@ -13,7 +13,7 @@ Por esse motivo, decidi criar este sistema para tentar resolver esse problema.
 
 Esta solução recorre à placa **NodeMCU** tanto para o servidor como para os diferentes clientes.
 O servidor tem a si ligada quatro interruptores de duas posições e quatro LED's, pois corresponde ao número de câmaras máximo usualmente usadas, mas isto é expansível dependendo das capacidades da versão da placa usada.
-A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem o seguinte funcionamento:
+A comunicação entre placas é feita através do protocolo de transferência de pacotes UDP, sendo cada pacote direcionado diretamente para a placa escolhida aquando da mudança de estado do interruptor. Tem o seguinte funcionamento:
 
                                     Mudança no Interruptor
 
@@ -34,8 +34,9 @@ A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem
                                             |
                                             v
                                                                                 
-                              Cliente Correspondente Deteta
-                            a Mudança através do Método Get
+                              Servidor Manda um pacote com a
+                                Informação para o Cliente
+                                     Correspondente
 
                                             +
                                             |
@@ -44,9 +45,10 @@ A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem
                                             |
                                             v
 
-                              Cliente a Luz que Confirma que
-                            a Câmara a que está associado está
-                                          "On air"
+                            Cliente recebe o pacote e processa,ligando
+                              a Luz que Confirma que a Câmara
+                                a que está associado está
+                                        "No Ar"
 
 ###   O circuito
   **Servidor**
@@ -59,9 +61,12 @@ A comunicação entre placas é feita através de *HTTP* (Não confirmado) e tem
    
    *Em Desenvolvimento*
 
+### Como Usar?
+   Para usar este código, recorre-se à ARDUINO IDE. Após a instalação da placa, é importante editar previamente o ficheiro "WiFi-Config-ex.hpp" previamente, da forma indicada no mesmo, e renomeando-o posteriormente para "WiFi-Config.hpp". Após esse passo é só escolher a respetiva placa, qual a porta COM a que se encontra ligada e dar upload do ficheiro como normalmente é feito num arduino.
+
 ## Em desenvolvimento
 
-De momento encontra-se tudo ainda em prototipagem e este código não foi testado devido à falta de todo o material necessário.
+Os códigos tanto do servidor como do cliente já foram testados com uma placa real e recorrendo a um programa de receção e envio de pacotes UDP. Falta testar no entanto num ambiente completamente real, apenas com placas e um ponto de acesso.
 
 ## Objetivos Futuros
 

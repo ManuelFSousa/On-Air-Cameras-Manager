@@ -4,6 +4,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <ESP8266WiFi.h>
+#include <WiFiUdp.h>
+#include <strings.h>
 #include "WiFi_Config.hpp"
 
 #define B1 D0
@@ -21,11 +23,24 @@ const char* password = passConfig;
 IPAddress ip(192, 168, 1, 13);
 IPAddress gateway(192,168,1,1);
 IPAddress subnet(255,255,255,0);
-WiFiServer server(80);
+
+IPAddress ipCamera1(192,168,1,14);
+IPAddress ipCamera2(192,168,1,15);
+IPAddress ipCamera3(192,168,1,16);
+IPAddress ipCamera4(192,168,1,17);
+int portaCamera1 = 2461;
+int portaCamera2 = 2462;
+int portaCamera3 = 2463;
+int portaCamera4 = 2464;
+
+unsigned int localUdpPort = 2460;
+WiFiUDP Udp;
+
+int envia_pacote(char* mensagem, IPAddress ipCamera, int portaCamera);
 
 void setup(){
     Serial.begin(115200); 
-
+    
     //-----------------------------------Ligação ao WIFI-----------------------------------
     WiFi.config(ip, gateway, subnet);
     WiFi.begin(ssid, password); 
@@ -37,9 +52,9 @@ void setup(){
         Serial.print(".");
     }
     Serial.print("\nConexão bem sucedida!");
-    Serial.print("\nO IP do servidor é: "); Serial.print(WiFi.localIP()); Serial.print(":80");
+    Serial.print("\nO IP do servidor é: "); Serial.print(WiFi.localIP()); Serial.print(":2460");
     //---------------------------------------------------------------------------------------
-    server.begin();
+    Udp.begin(localUdpPort);
     //--------------------------------Setup dos Pinos a usar---------------------------------
     pinMode(B1, INPUT); //Pin Botão 1
     pinMode(B2, INPUT); //Pin Botão 2
@@ -54,39 +69,57 @@ void setup(){
 
 void loop(){
     int estado1 = digitalRead(B1), estado2 = digitalRead(B2), estado3 = digitalRead(B3), estado4 = digitalRead(B4);
-    WiFiClient client = server.available();
+    char mensagem[9];
     
     while(1){
+        strcpy(mensagem, "Led2 = c");
+
         if(digitalRead(B1) != estado1){
             estado1 = digitalRead(B1);
             Serial.print("\nPino1: "); Serial.print(digitalRead(B1));
             digitalWrite(L1, digitalRead(B1));
-            server.printf("Led1 = %d", digitalRead(B1));
+            mensagem[3] = '1';
+            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            envia_pacote(mensagem, ipCamera1, portaCamera1);
         }
         
         if(digitalRead(B2) != estado2){
             estado2 = digitalRead(B2);
             Serial.print("\nPino2: "); Serial.print(digitalRead(B2));
             digitalWrite(L2, digitalRead(B2));
-            server.printf("Led2 = %d", digitalRead(D2));
+            mensagem[3] = '2';
+            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            envia_pacote(mensagem, ipCamera2, portaCamera2);
         }
         
         if(digitalRead(B3) != estado3){
             estado3 = digitalRead(B3);
             Serial.print("\nPino3: "); Serial.print(digitalRead(B3));
-            digitalWrite(L3, digitalRead(B3));
-            server.printf("Led3 = %d", digitalRead(D3));
+            mensagem[3] = '3';
+            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            envia_pacote(mensagem, ipCamera3, portaCamera3);
         }
         
         if(digitalRead(B4) != estado4){
             estado4 = digitalRead(B4);
             Serial.print("\nPino4: "); Serial.print(digitalRead(B4));
-            digitalWrite(L4, digitalRead(B4));
-            server.printf("Led4 = %d", digitalRead(B4));
+            mensagem[3] = '4';
+            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            envia_pacote(mensagem, ipCamera4, portaCamera4);
         }
-
-        server.flush();
         delay(500);
     }    
 }
-//LedX = 1/0
+
+int envia_pacote(char* mensagem, IPAddress ipCamera, int portaCamera){
+    if(Udp.beginPacket(ipCamera, portaCamera) == 0)
+        return 0;
+
+    Udp.write(mensagem);
+    
+    Udp.endPacket();
+    if(Serial.print("\nPackage sent") == 0)
+        return 0;
+
+    return 1;
+}
