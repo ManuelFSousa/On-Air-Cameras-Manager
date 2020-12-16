@@ -2,5 +2,6 @@
 .DS_Store
 .vscode/arduino.json
 WiFi_Config.hpp
-/Diagramas/Circuito.fzz
+/Diagramas/Circuito_Server.fzz
+/Diagramas/Circuito_Client.fzz
 Orçamento_BA.xlsx

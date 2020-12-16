@@ -55,18 +55,20 @@ A comunicação entre placas é feita através do protocolo de transferência de
 
    O circuito do Servidor é muito simples e consiste num NodeMCU ao qual se encontram 4 alavancas de duas posições em que se indicam quais as câmaras que estão a transmitir. A cada switch corresponde um LED para garantir que a placa detetou as mudanças de sinal dos botões. Para a ligação das alavancar recorreu-se ao tradicional circuito com uma resistência *pull-down*, esta resistência com valor de cerca de 100 ohms, tem como objetivo evitar oscilações aleatórias do valor de leitura do pin correspondente, obrigando a que quando a alavanca se encontra desligada (para baixo), o valor é efetivamente *LOW*. Dada a placa usada fornecer cerca 3.3V, os LED's usados encontram-se ligados diretamente à placa, mas caso a placa forneça 5V, é aconselhado ligar uma resitência em série para evitar que o LED queime.
 
-   ![Imagem do Circuito do Servidor](https://github.com/ManuelFSousa/On-Air-Cameras-Manager/blob/main/Diagramas/Circuito_Servidor.png)
+   ![Imagem do Circuito do Servidor](https://github.com/ManuelFSousa/On-Air-Cameras-Manager/blob/main/Diagramas/Circuito_Server.png)
 
    **Cliente**
    
-   *Em Desenvolvimento*
+   O circuito do cliente é ainda mais simples do que o do servidor, consistindo apenas num NodeMCU, numa resistência e num LED. Liga-se o LED ao ground da placa e para o pino positivo do LED que se liga ao pino D5 da placa, usa-se uma resistência em série para garantir que o valor da corrente que percorrer o LED não ultrapassa o máximo. Dado output da placa ser de 3.3V, esta resistência na maioria dos casos não será necessária, num entanto por uma questão de segurança, insere-se para evitar problemas. O valor aconselhado é de cerca de 100 ohms.
+
+   ![Imagem do Circuito do Cliente](https://github.com/ManuelFSousa/On-Air-Cameras-Manager/blob/main/Diagramas/Circuito_Client.png)
 
 ### Como Usar?
    Para usar este código, recorre-se à ARDUINO IDE. Após a instalação da placa, é importante editar previamente o ficheiro "WiFi-Config-ex.hpp" previamente, da forma indicada no mesmo, e renomeando-o posteriormente para "WiFi-Config.hpp". Após esse passo é só escolher a respetiva placa, qual a porta COM a que se encontra ligada e dar upload do ficheiro como normalmente é feito num arduino.
 
 ## Em desenvolvimento
 
-Os códigos tanto do servidor como do cliente já foram testados com uma placa real e recorrendo a um programa de receção e envio de pacotes UDP. Falta testar no entanto num ambiente completamente real, apenas com placas e um ponto de acesso.
+Os códigos tanto do servidor como do cliente já foram testados com uma placa real e recorrendo a um programa de receção e envio de pacotes UDP. Num segundo teste, já foi possível confirmar o total funcionamento dos códigos recorrendo a um ponto de acesso e a uma placa como servidor e outra como cliente.
 
 ## Objetivos Futuros
 
