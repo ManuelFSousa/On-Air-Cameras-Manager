@@ -1,6 +1,7 @@
 .vscode
 .DS_Store
 .vscode/arduino.json
+.theia
 WiFi_Config.hpp
 /Diagramas/Circuito_Server.fzz
 /Diagramas/Circuito_Client.fzz

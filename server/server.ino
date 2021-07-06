@@ -11,8 +11,8 @@
 #define B1 D0
 #define B2 D1
 #define B3 D2
-#define B4 D4               //Evitar usar o pin D3, pois se puxado a LOW, o NodeMCU não vai conseguir inicializar. (Como alternativa, pode ser usado para o botão, estando este premido)
-#define L1 D5
+#define B4 D5               //Evitar usar o pin D3, pois se puxado a LOW, o NodeMCU não vai conseguir inicializar. (Como alternativa, pode ser usado para o botão, estando este premido). Uso do pino D5 pois o D3 e o D4 não funcionam como input para um botão com resistência pull up externa por motivos inerentes à placa.
+#define L1 D9               //Uso do pino RX da placa indicado como pino D9 na IDE do arduino (método usado para compilar)
 #define L2 D6
 #define L3 D7
 #define L4 D8
@@ -88,23 +88,25 @@ void loop(){
             Serial.print("\nPino2: "); Serial.print(digitalRead(B2));
             digitalWrite(L2, digitalRead(B2));
             mensagem[3] = '2';
-            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            mensagem[7] = 48 + digitalRead(B2); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
             envia_pacote(mensagem, ipCamera2, portaCamera2);
         }
         
         if(digitalRead(B3) != estado3){
             estado3 = digitalRead(B3);
             Serial.print("\nPino3: "); Serial.print(digitalRead(B3));
+            digitalWrite(L3, digitalRead(B3));
             mensagem[3] = '3';
-            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            mensagem[7] = 48 + digitalRead(B3); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
             envia_pacote(mensagem, ipCamera3, portaCamera3);
         }
         
         if(digitalRead(B4) != estado4){
             estado4 = digitalRead(B4);
             Serial.print("\nPino4: "); Serial.print(digitalRead(B4));
+            digitalWrite(L4, digitalRead(B4));
             mensagem[3] = '4';
-            mensagem[7] = 48 + digitalRead(B1); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
+            mensagem[7] = 48 + digitalRead(B4); //Adiciona-se 48 porque é o número correspondente a 0 na tabela ascii. Caso o input esteja a 0, o char fica a 0, se estiver a 1, o char fica a 1
             envia_pacote(mensagem, ipCamera4, portaCamera4);
         }
         delay(500);
